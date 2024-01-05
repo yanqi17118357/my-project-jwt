@@ -1,3 +1,10 @@
 # 应用服务 WEB 访问端口
-server.port=8080
+server:
+  port: 8080
 
+# jwt令牌key
+spring:
+  security:
+    jwt:
+      key: sonna
+      expire: 7
