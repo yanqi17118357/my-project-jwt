@@ -1,12 +1,13 @@
 package org.example.config;
 
 import jakarta.annotation.Resource;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.entity.RestBean;
+import org.example.entity.dto.Account;
 import org.example.entity.vo.response.AuthorizeVO;
 import org.example.filter.JwtAuthorizeFilter;
+import org.example.service.AccountService;
 import org.example.utils.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
@@ -32,6 +32,9 @@ public class SecurityConfiguration {
 
     @Resource
     JwtAuthorizeFilter jwtAuthorizeFilter;
+
+    @Resource
+    AccountService service;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -70,10 +73,11 @@ public class SecurityConfiguration {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         User user = (User) authentication.getPrincipal();
-        String token = utils.creatJwt(user, 1, "小明");
+        Account account = service.findAccountByNameOrEmail(user.getUsername());
+        String token = utils.creatJwt(user, account.getId(), account.getUsername());
         AuthorizeVO vo = new AuthorizeVO();
-        vo.setUsername("小明");
-        vo.setRole("");
+        vo.setUsername(account.getUsername());
+        vo.setRole(account.getEmail());
         vo.setToken(token);
         vo.setExpire(utils.expireTime());
         response.getWriter().write(RestBean.success(vo).asJsonString());
@@ -103,7 +107,7 @@ public class SecurityConfiguration {
 
     public void onAccessDeny(HttpServletRequest request,
                              HttpServletResponse response,
-                             AccessDeniedException exception) throws IOException, ServletException {
+                             AccessDeniedException exception) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         response.getWriter().write(RestBean.forbidden(exception.getMessage()).asJsonString());
