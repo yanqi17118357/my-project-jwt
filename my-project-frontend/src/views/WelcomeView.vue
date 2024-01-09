@@ -2,7 +2,7 @@
   <div style="width: 100vw; height:100vh; overflow: hidden; display: flex">
     <div style="flex: 1;">
       <el-image style="width: 100%; height: 100%" fit="cover"
-        src="https://npm.elemecdn.com/yanqi1711-picx/20220423/112.jinldrg0fg0.webp" />
+        src="/_bg_sky2.jpg" />
 
     </div>
     <div class="welcome-title">
