@@ -6,9 +6,9 @@
 
     </div>
     <div class="welcome-title">
-      <div style="font-size:30px; font-weight: bold;">1111111111111111</div>
-      <div style="margin-top: 10px">2222222222222222222222222222222</div>
-      <div style="margin-top: 5px">33333333333333333333333</div>
+      <div style="font-size:30px; font-weight: bold;">吃鸡时间到！！！</div>
+      <div style="margin-top: 10px">@🍀 @勋宗皇帝 @美利坚掘墓人</div>
+      <div style="margin-top: 5px">我手机都充满电了，你们还不来？</div>
     </div>
     <div class="right-card">
       <router-view/>
