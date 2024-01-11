@@ -5,6 +5,8 @@ server:
 # jwt令牌key
 spring:
   security:
+    filter:
+      order: -100
     jwt:
       key: sonna
       expire: 7
