@@ -4,6 +4,15 @@ server:
 
 # jwt令牌key
 spring:
+  mail:
+    host: smtp.163.com
+    username: yanqi1711@163.com
+    password: DZKRNUXOVFWSCIOB
+  rabbitmq:
+    addresses: localhost
+    username: swsk33
+    password: 123456
+    virtual-host: /
   security:
     filter:
       order: -100
