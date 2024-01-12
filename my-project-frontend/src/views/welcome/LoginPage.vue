@@ -50,6 +50,7 @@
 
 <script setup>
 import { login } from '@/net';
+import router from '@/router';
 import { User } from '@element-plus/icons-vue'
 import { Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue';
@@ -74,7 +75,7 @@ const rule = {
 function userLogin() {
   formRef.value.validate((valid) => {
     if(valid) {
-      login(form.username, form.password, form.remember, () => {})
+      login(form.username, form.password, form.remember, () => router.push('/index'))
     }
   })
 }

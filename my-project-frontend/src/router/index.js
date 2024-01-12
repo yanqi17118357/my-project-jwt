@@ -1,3 +1,4 @@
+import { unauthorized } from '@/net';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
@@ -10,12 +11,29 @@ const router = createRouter({
       children: [
         {
           path: '',
-          name: 'welcom-login',
+          name: 'welcome-login',
           component: () => import('@/views/welcome/LoginPage.vue'),
         }
       ]
+    }, {
+      path: '/index',
+      name: 'index',
+      component: () => import('@/views/IndexView.vue'),
     }
   ]
+})
+
+// 路由守卫
+router.beforeEach((to, from, next) => {
+  const isUnauthorized = unauthorized()
+  // 用户如果已经登录就不让他回到登录页面了，如果没有登录则不能访问主页面
+  if (to.name.startsWith('welcome-') && !isUnauthorized) {
+    next('/index')
+  } else if (to.fullPath.startsWith('/index') && isUnauthorized) {
+    next('/')
+  } else {
+    next()
+  }
 })
 
 export default router

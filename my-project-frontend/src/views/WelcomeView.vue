@@ -2,13 +2,13 @@
   <div style="width: 100vw; height:100vh; overflow: hidden; display: flex">
     <div style="flex: 1;">
       <el-image style="width: 100%; height: 100%" fit="cover"
-        src="/_bg_sky2.jpg" />
+        src="/_bg_sky2.webp" />
 
     </div>
     <div class="welcome-title">
-      <div style="font-size:30px; font-weight: bold;">吃鸡时间到！！！</div>
-      <div style="margin-top: 10px">@🍀 @勋宗皇帝 @美利坚掘墓人</div>
-      <div style="margin-top: 5px">我手机都充满电了，你们还不来？</div>
+      <div style="font-size:30px; font-weight: bold;">Sonna</div>
+      <div style="margin-top: 10px">她沉鱼落雁、闭月羞花</div>
+      <div style="margin-top: 5px">她风姿绰约、她风华绝代</div>
     </div>
     <div class="right-card">
       <router-view/>
