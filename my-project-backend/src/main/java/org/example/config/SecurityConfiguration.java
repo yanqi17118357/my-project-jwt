@@ -41,7 +41,7 @@ public class SecurityConfiguration {
         return http
                 .authorizeHttpRequests(conf -> conf
                         // 允许所有/api/auth/前缀的请求，其余的需要登录后才能访问
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/error").permitAll()
                         .anyRequest().authenticated()
                 )
                 // 登录配置
