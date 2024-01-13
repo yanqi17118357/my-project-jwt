@@ -40,10 +40,10 @@
       <el-button @click="userLogin" style="width: 270px;" type="success" plain>立即登录</el-button>
     </div>
     <el-divider>
-      <span style="font-size: 13px; color: grey;">没有账号</span>
+      <span style="font-size: 13px; color: grey;">没有账号👇</span>
     </el-divider>
     <div>
-      <el-button style="width: 270px;" type="warning" plain>立即注册</el-button>
+      <el-button @click="router.push('/register')" style="width: 270px;" type="warning" plain>立即注册</el-button>
     </div>
   </div>
 </template>

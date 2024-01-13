@@ -13,6 +13,10 @@ const router = createRouter({
           path: '',
           name: 'welcome-login',
           component: () => import('@/views/welcome/LoginPage.vue'),
+        }, {
+          path: 'register',
+          name: 'welcome-register',
+          component: () => import('@/views/welcome/RegisterPage.vue'),
         }
       ]
     }, {
@@ -26,7 +30,7 @@ const router = createRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
   const isUnauthorized = unauthorized()
-  // 用户如果已经登录就不让他回到登录页面了，如果没有登录则不能访问主页面
+  // 用户如果已经登录就不让他回到登录或者注册页面了，如果没有登录则不能访问主页面
   if (to.name.startsWith('welcome-') && !isUnauthorized) {
     next('/index')
   } else if (to.fullPath.startsWith('/index') && isUnauthorized) {
