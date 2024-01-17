@@ -4,6 +4,7 @@ import router from './router'
 import axios from 'axios'
 import 'element-plus/theme-chalk/el-message.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
+import 'virtual:uno.css'
 
 axios.defaults.baseURL = 'http://localhost:8080'
 
