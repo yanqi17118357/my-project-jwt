@@ -71,7 +71,7 @@ function get(url, success, failure = defaultFailure) {
 }
 
 function post(url, data, success, failure = defaultFailure) {
-  internalPost(url, data, accessHeader().success, failure)
+  internalPost(url, data, accessHeader(), success, failure)
 }
 
 function login(username, password, remember, success, failure = defaultFailure) {
@@ -90,7 +90,7 @@ function login(username, password, remember, success, failure = defaultFailure) 
 function logout(success, failure = defaultFailure) {
   get('/api/auth/logout', () => {
     deleteAccessToken()
-    ElMessage.success('退出登录成功，欢迎您再次使用')
+    ElMessage.success('退出登录成功，欢迎你再次使用')
     success()
   }, failure)
 }

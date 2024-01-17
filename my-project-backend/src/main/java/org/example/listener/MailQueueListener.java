@@ -28,10 +28,10 @@ public class MailQueueListener {
         SimpleMailMessage message = switch (type) {
             case "register" ->
                 createMessage("欢迎注册我们的网站",
-                        "您的邮件注册验证码为："+code+"，有效时间为3分钟，为了保陵您的安全，请勿向他人泄露验证码信息。", email);
+                        "你的邮件注册验证码为："+code+"，有效时间为3分钟，为了保陵你的安全，请勿向他人泄露验证码信息。", email);
             case "reset" ->
                 createMessage("你的密码重置件",
-                        "你好，您正在进行重置密积操作，验证码："+code+"，有效时间3分钟，如非本人操作，请无视。", email);
+                        "你好，你正在进行重置密积操作，验证码："+code+"，有效时间3分钟，如非本人操作，请无视。", email);
             default -> null;
         };
         if (message == null) return;

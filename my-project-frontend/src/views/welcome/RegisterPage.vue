@@ -1,7 +1,13 @@
 <script setup>
-import { reactive } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import router from '@/router';
 import { Lock, User, Message, EditPen } from '@element-plus/icons-vue'
+import { get, post } from '@/net';
+import { ElMessage } from 'element-plus';
+
+const coldTime = ref(0)
+const formRef = ref()
+
 const form = reactive({
   username: '',
   password: '',
@@ -49,6 +55,41 @@ const rule = {
     { required: true, message: '请输入验证码', trigger: 'blur' }
   ]
 }
+
+function askCode() {
+  if (isEmailVaild) {
+    coldTime.value = 60
+    get(`/api/auth/ask-code?email=${form.email}&type=register`, () => {
+      ElMessage.success('验证码已发送至你的邮箱，请注意查收')
+      const handle = setInterval(() => {
+          coldTime.value--
+          if(coldTime.value === 0) {
+            clearInterval(handle)
+          }
+        }, 1000)
+    }, (message) => {
+      ElMessage.error(message)
+      coldTime.value = 0
+    })
+  } else {
+    ElMessage.error('请输入正确的邮箱地址')
+  }
+}
+
+const isEmailVaild = computed(() => /^[\w.-]+@[\w-]+\.\w+$/.test(form.email))
+
+function register() {
+  formRef.value.validate((valid) => {
+    if(valid) {
+      post('/api/auth/register', {...form}, () => {
+        ElMessage.success('注册成功')
+        router.push('/')
+      })
+    } else {
+      ElMessage.error('请检查表单')
+    }
+  })
+}
 </script>
 
 <template>
@@ -58,7 +99,7 @@ const rule = {
       <div class="text-14px text-gray-500">欢迎注册我们的学习平台，请填写以下信息</div>
     </div>
     <div class="mt-50px">
-      <el-form :model="form" :rules="rule">
+      <el-form :model="form" :rules="rule" ref="formRef">
         <el-form-item prop="username">
           <el-input v-model="form.username" maxlength="10" type="text" placeholder="用户名">
             <template #prefix>
@@ -87,7 +128,7 @@ const rule = {
           </el-input>
         </el-form-item>
         <el-form-item prop="email">
-          <el-input v-model="form.email" maxlength="20" type="email" placeholder="邮箱">
+          <el-input v-model="form.email" type="email" placeholder="邮箱">
             <template #prefix>
               <el-icon>
                 <Message />
@@ -107,14 +148,16 @@ const rule = {
               </el-input>
             </el-col>
             <el-col :span="5">
-              <el-button type="primary">获取验证码</el-button>
+              <el-button @click="askCode" :disabled="!isEmailVaild || coldTime > 0" type="primary">
+                {{ coldTime ? `${coldTime}秒后重试` : '获取验证码' }}
+              </el-button>
             </el-col>
           </el-row>
         </el-form-item>
       </el-form>
     </div>
     <div class="mt-40px">
-      <el-button class="w-270px" type="success" plain>立即注册</el-button>
+      <el-button @click="register" class="w-270px" type="success" plain>立即注册</el-button>
     </div>
     <el-divider>
       <span class="text-13px text-gray-500">已有账号👇</span>
