@@ -36,7 +36,7 @@ const validatePassword = (rule, value, callback) => {
   }
 }
 
-const rule = {
+const rules = {
   username: [
     { validator: validateUsername, trigger: ['blur', 'change'] }
   ],
@@ -99,7 +99,7 @@ function register() {
       <div class="text-14px text-gray-500">欢迎注册我们的学习平台，请填写以下信息</div>
     </div>
     <div class="mt-50px">
-      <el-form :model="form" :rules="rule" ref="formRef">
+      <el-form :model="form" :rules="rules" ref="formRef">
         <el-form-item prop="username">
           <el-input v-model="form.username" maxlength="10" type="text" placeholder="用户名">
             <template #prefix>
@@ -110,7 +110,7 @@ function register() {
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="form.password" maxlength="20" type="password" placeholder="密码">
+          <el-input v-model="form.password" maxlength="20" type="password" placeholder="密码" show-password>
             <template #prefix>
               <el-icon>
                 <Lock />
@@ -119,7 +119,7 @@ function register() {
           </el-input>
         </el-form-item>
         <el-form-item prop="confirm_password">
-          <el-input v-model="form.confirm_password" maxlength="20" type="password" placeholder="确认密码">
+          <el-input v-model="form.confirm_password" maxlength="20" type="password" placeholder="确认密码" show-password>
             <template #prefix>
               <el-icon>
                 <Lock />
