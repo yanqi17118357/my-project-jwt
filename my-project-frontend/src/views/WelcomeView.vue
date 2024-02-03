@@ -11,7 +11,7 @@
       <div class="mt-10px">她沉鱼落雁、闭月羞花</div>
       <div class="mt-5px">她风姿绰约、她风华绝代</div>
     </div>
-    <div class="w-400px z-1 bg-white">
+    <div class="w-400px z-1 var(--el-bg-color)">
       <router-view v-slot="{ Component }">
         <!-- 淡入淡出过渡效果 -->
         <transition name="el-fade-in-linear" mode="out-in">
